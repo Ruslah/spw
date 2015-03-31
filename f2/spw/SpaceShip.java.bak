@@ -26,8 +26,8 @@ public class SpaceShip extends Sprite{
 				x = 400 - width;
 		}else if(directionY!=0&&directionX==0){
 			y += (step * directionY);
-			if(y < 400 )
-				y = 400;
+			if(y < 450 )
+				y = 450;
 			if(y > 550)
 				y = 550;
 		}
