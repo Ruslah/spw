@@ -1,6 +1,10 @@
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.Image;
+
+
 
 public class Enemy extends Sprite{
 	public static final int Y_TO_FADE = 400;
@@ -11,13 +15,14 @@ public class Enemy extends Sprite{
 	private boolean alive = true;
 	
 	public Enemy(int x, int y) {
-		super(x, y, 5, 10);
+		super(x, y, 20, 25);
 		
 	}
-
-	public Enemy(int x, int y,int w,int h) {
-		super(x, y, w, h);
+	public Enemy(int x, int y,int width, int height) {
+		super(x, y, width, height);
+		
 	}
+	
 
 
 
@@ -29,9 +34,17 @@ public class Enemy extends Sprite{
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 
 					(float)(Y_TO_DIE - y)/(Y_TO_DIE - Y_TO_FADE)));
 		}
-		g.setColor(Color.RED);
-		g.fillRect(x, y, width, height);
-		
+		//g.setColor(Color.RED);
+		//g.fillRect(x, y, width, height);
+		if(width ==20){
+			Image img = Toolkit.getDefaultToolkit().getImage("bomb.png");
+			g.drawImage(img, x, y, width, height, null);
+		}
+		else{
+			Image img = Toolkit.getDefaultToolkit().getImage("bang.png");
+			g.drawImage(img, x, y, width, height, null);
+		}
+
 	}
 
 	public void proceed(){
