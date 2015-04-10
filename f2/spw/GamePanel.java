@@ -22,7 +22,10 @@ public class GamePanel extends JPanel {
 		big.clearRect(0, 0, 400, 600);
 		
 		big.setColor(Color.BLACK);		
+		big.drawString(String.format("Score"), 260, 20);
 		big.drawString(String.format("%08d", reporter.getScore()), 300, 20);
+		big.drawString(String.format("HP"), 30, 20);
+		big.drawString(String.format("%02d", reporter.getHp()), 50, 20);
 		for(Sprite s : sprites){
 			s.draw(big);
 		}

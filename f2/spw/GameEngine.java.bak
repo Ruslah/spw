@@ -17,6 +17,8 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private Timer timer;
 	
+	private int count = 10 ;
+	private int hp = 3;
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -49,7 +51,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			enemies.add(e);
 		}
 		else{
-			Enemy e = new Enemy((int)(Math.random()*390), 50 , 25, 30);
+			Enemy e = new Enemy((int)(Math.random()*390), 50 , 40, 35);
 			gp.sprites.add(e);
 			enemies.add(e);
 		}
@@ -84,16 +86,19 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				die();
+				count --;
+				decHp();
 				return;
 			}
+			count =10;
 		}
 	}
 	
 	public void die(){
 		timer.stop();
 	}
-	
+
+		
 	void controlVehicle(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
@@ -119,6 +124,14 @@ public class GameEngine implements KeyListener, GameReporter{
 	public long getScore(){
 		return score;
 	}
+
+	public int getHp(){
+		return hp;
+	}
+
+	public int getcount(){
+		return count;
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -135,4 +148,14 @@ public class GameEngine implements KeyListener, GameReporter{
 	public void keyTyped(KeyEvent e) {
 		//do nothing		
 	}
+
+	public void decHp(){
+
+		if(count<=9)
+		hp -= 1 ;
+		if(hp <= 0){
+			die();
+		}
+	}
+	
 }
