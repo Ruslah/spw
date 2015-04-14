@@ -17,8 +17,10 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private Timer timer;
 	
+	private int t = 10;
 	private int count = 10 ;
 	private int hp = 3;
+	private int chk = 10;
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -45,7 +47,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private void generateEnemy(){
 
-		if((int)(Math.random()*10)> 5 ){
+		if((int)(Math.random()*10)%2 ==0  ){
 			Enemy e = new Enemy((int)(Math.random()*390), 30);
 			gp.sprites.add(e);
 			enemies.add(e);
@@ -75,7 +77,11 @@ public class GameEngine implements KeyListener, GameReporter{
 				e_iter.remove();
 				gp.sprites.remove(e);
 				score += 100;
-				
+				if(score%2000==0){
+					chk=0;
+				}
+				chkInflate();
+				chk++;
 			}		
 		}
 		
@@ -86,7 +92,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				count --;
+				count--;
 				decHp();
 				return;
 			}
@@ -129,8 +135,8 @@ public class GameEngine implements KeyListener, GameReporter{
 		return hp;
 	}
 
-	public int getcount(){
-		return count;
+	public int getTime(){
+		return t;
 	}
 	
 	@Override
@@ -155,6 +161,19 @@ public class GameEngine implements KeyListener, GameReporter{
 		hp -= 1 ;
 		if(hp <= 0){
 			die();
+		}
+	}
+
+	public void chkInflate(){
+		
+		if(chk >= 0 && chk<10){
+			t--;
+			v.width = 15;
+			v.height = 35;
+		}else {
+			t = 10;
+			v.width = 30;
+			v.height = 70;
 		}
 	}
 	
