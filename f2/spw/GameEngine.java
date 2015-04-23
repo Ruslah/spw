@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 import javax.swing.Timer;
 
 
@@ -13,11 +14,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
+	private ArrayList<Item> item = new ArrayList<Item>();
 	private SpaceShip v;	
 	
 	private Timer timer;
 	
-	private int t = 10;
+	private int t = 0;
 	private int count = 10 ;
 	private int hp = 3;
 	private int chk = 10;
@@ -30,11 +32,14 @@ public class GameEngine implements KeyListener, GameReporter{
 		
 		gp.sprites.add(v);
 		
+		
 		timer = new Timer(50, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				process();
+				Item();
+		
 			}
 		});
 		timer.setRepeats(true);
@@ -60,8 +65,18 @@ public class GameEngine implements KeyListener, GameReporter{
 		
 	}
 
+	private void generateItem(){
 
-	
+		if((int)(Math.random()*10)%2 ==0  ){
+			Item it = new Item((int)(Math.random()*390), 30);
+			gp.sprites.add(it);
+			item.add(it);
+		}
+			
+	}
+
+
+
 	private void process(){
 		if(Math.random() < difficulty){
 			generateEnemy();
@@ -77,12 +92,7 @@ public class GameEngine implements KeyListener, GameReporter{
 				e_iter.remove();
 				gp.sprites.remove(e);
 				score += 100;
-				if(score%2000==0){
-					chk=0;
-				}
-				chkInflate();
-				chk++;
-			}		
+				}		
 		}
 		
 		gp.updateGameUI(this);
@@ -92,13 +102,52 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				count--;
 				decHp();
+				e.pickup();
 				return;
 			}
-			count =10;
 		}
 	}
+
+
+	
+	private void Item(){
+		if(Math.random() < difficulty/10){
+			generateItem();
+		}
+		
+			
+		
+		Iterator<Item> it_iter = item.iterator();
+		while(it_iter.hasNext()){
+			Item it = it_iter.next();
+			it.proceed();
+			if(!it.isAlive()){
+				it_iter.remove();
+				gp.sprites.remove(it);
+				t--;
+				}		
+		}
+		
+		gp.updateGameUI(this);
+		
+		Rectangle2D.Double vr = v.getRectangle();
+		Rectangle2D.Double tr;
+		for(Item it : item){
+			tr = it.getRectangle();
+			if(tr.intersects(vr)){
+				t=10;
+				it.pickup();
+				Inflate(true);
+				return;
+			}
+			if(score%2000==0){
+				Inflate(false);
+			}
+		}
+	}
+
+
 	
 	public void die(){
 		timer.stop();
@@ -156,25 +205,22 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 
 	public void decHp(){
-
-		if(count<=2)
-		hp -= 1 ;
+		hp--;
 		if(hp <= 0){
 			die();
 		}
 	}
 
-	public void chkInflate(){
+	public void Inflate(boolean inf){
 		
-		if(chk >= 0 && chk<10){
-			t--;
+		if(inf==true){
 			v.width = 15;
 			v.height = 35;
-		}else {
-			t = 10;
+		}else if(inf==false){
 			v.width = 30;
 			v.height = 70;
 		}
 	}
+
 	
 }

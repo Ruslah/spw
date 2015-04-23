@@ -6,7 +6,7 @@ import java.awt.Image;
 
 
 
-public class Enemy extends Sprite{
+public class Item extends Sprite{
 	public static final int Y_TO_FADE = 400;
 	public static final int Y_TO_DIE = 600;
 	
@@ -14,17 +14,11 @@ public class Enemy extends Sprite{
 	private int step = 12;
 	private boolean alive = true;
 	
-	public Enemy(int x, int y) {
+	public Item(int x, int y) {
 		super(x, y, 20, 25);
 		
 	}
-	public Enemy(int x, int y,int width, int height) {
-		super(x, y, width, height);
-		
-	}
 	
-
-
 
 	@Override
 	public void draw(Graphics2D g) {
@@ -34,16 +28,16 @@ public class Enemy extends Sprite{
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 
 					(float)(Y_TO_DIE - y)/(Y_TO_DIE - Y_TO_FADE)));
 		}
-		//g.setColor(Color.RED);
-		//g.fillRect(x, y, width, height);
-		if(width ==20){
+		g.setColor(Color.RED);
+		g.fillRect(x, y, width, height);
+		/*if(width ==20){
 			Image img = Toolkit.getDefaultToolkit().getImage("bomb.png");
 			g.drawImage(img, x, y, width, height, null);
 		}
 		else{
 			Image img = Toolkit.getDefaultToolkit().getImage("bang.png");
 			g.drawImage(img, x, y, width, height, null);
-		}
+		}*/
 
 	}
 
