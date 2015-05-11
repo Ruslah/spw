@@ -35,6 +35,8 @@ public class GamePanel extends JPanel {
 		big.drawString(String.format("%02d", reporter.getHp()), 50, 20);
 		big.drawString(String.format("Coutdown"), 100, 20);
 		big.drawString(String.format("%02d", reporter.getTime()), 170, 20);
+		big.drawString(String.format("Power"), 200, 20);
+		big.drawString(String.format("%02d", reporter.getChk()), 200, 40);
 		for(Sprite s : sprites){
 			s.draw(big);
 		}

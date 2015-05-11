@@ -21,9 +21,10 @@ public class GameEngine implements KeyListener, GameReporter{
 	private Timer timer;
 	
 	private int t = 0;
+	private int time = 0;
 	private int count = 10 ;
 	private int hp = 3;
-	private int chk = 10;
+	private int chk = 100;
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -40,7 +41,16 @@ public class GameEngine implements KeyListener, GameReporter{
 			public void actionPerformed(ActionEvent arg0) {
 				process();
 				Item();
-		
+				if(time>10){
+					time--;
+				}
+				if(time%10==0){
+					t--;
+				}
+				if(t<=0){
+					t=0;
+					Inflate(false);
+				}
 			}
 		});
 		timer.setRepeats(true);
@@ -52,7 +62,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 	
 	private void generateEnemy(){
-
+		
 		if((int)(Math.random()*10)%2 ==0  ){
 			Enemy e = new Enemy((int)(Math.random()*390), 30);
 			gp.sprites.add(e);
@@ -93,7 +103,11 @@ public class GameEngine implements KeyListener, GameReporter{
 				e_iter.remove();
 				gp.sprites.remove(e);
 				score += 100;
-				}		
+					if(score%5000==0){
+						chk = 100;
+					}
+				}
+			
 		}
 
 		Iterator<Bullet> b_iter = bullets.iterator();
@@ -146,7 +160,6 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(!it.isAlive()){
 				it_iter.remove();
 				gp.sprites.remove(it);
-				t--;
 				}		
 		}
 		
@@ -157,9 +170,9 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Item it : item){
 			tr = it.getRectangle();
 			if(tr.intersects(vr)){
-				t=10;
 				it.pickup();
 				Inflate(true);
+				
 				return;
 			}
 			if(score%2000==0){
@@ -192,7 +205,8 @@ public class GameEngine implements KeyListener, GameReporter{
 			break;
 
 		case KeyEvent.VK_SPACE:
-            shoot();;
+			chk--;
+            shoot();
 			break;
 		
 		case KeyEvent.VK_D:
@@ -211,6 +225,10 @@ public class GameEngine implements KeyListener, GameReporter{
 
 	public int getTime(){
 		return t;
+	}
+
+	public int getChk(){
+		return chk;
 	}
 	
 	@Override
@@ -237,10 +255,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 
 	public void Inflate(boolean inf){
-		
 		if(inf==true){
+			time=100;
+			t=20;
 			v.width = 15;
 			v.height = 35;
+			
 		}else if(inf==false){
 			v.width = 30;
 			v.height = 70;
@@ -248,8 +268,14 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 
 	private void shoot(){
-		Bullet b = new Bullet((v.x) + (v.width/2) - 5, v.y);
-		gp.sprites.add(b);
-		bullets.add(b);
+			if(chk>0&&chk<100){
+				Bullet b = new Bullet((v.x) + (v.width/2) - 5, v.y);
+				gp.sprites.add(b);
+				bullets.add(b);				
+			}else{
+				chk = 0;
+			}
 	}
+
+	
 }
