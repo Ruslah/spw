@@ -44,11 +44,12 @@ public class GameEngine implements KeyListener, GameReporter{
 				if(time>10){
 					time--;
 				}
-				if(time%10==0){
+				if(time%10==0&&time>10){
 					t--;
 				}
 				if(t<=0){
 					t=0;
+					time=0;
 					Inflate(false);
 				}
 			}
@@ -256,8 +257,13 @@ public class GameEngine implements KeyListener, GameReporter{
 
 	public void Inflate(boolean inf){
 		if(inf==true){
-			time=100;
-			t=20;
+			if(time==0&&t==0){
+				time=120;
+				t=10;
+			}else{
+				time+=120;
+				t+=10;
+			}
 			v.width = 15;
 			v.height = 35;
 			
@@ -277,5 +283,8 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 	}
 
+	public void setScore(int score){
+		this.score = score;
+	}
 	
 }
