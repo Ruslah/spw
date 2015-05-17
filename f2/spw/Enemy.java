@@ -15,7 +15,7 @@ public class Enemy extends Sprite{
 	private boolean alive = true;
 	
 	public Enemy(int x, int y) {
-		super(x, y, 20, 25);
+		super(x, y, 30, 35);
 		
 	}
 	public Enemy(int x, int y,int width, int height) {
@@ -36,7 +36,7 @@ public class Enemy extends Sprite{
 		}
 		//g.setColor(Color.RED);
 		//g.fillRect(x, y, width, height);
-		if(width ==20){
+		if(width ==30){
 			Image img = Toolkit.getDefaultToolkit().getImage("bomb.png");
 			g.drawImage(img, x, y, width, height, null);
 		}

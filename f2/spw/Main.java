@@ -22,7 +22,7 @@ public class Main {
         menubar.add(menuMain);
         frame.setJMenuBar(menubar);
 
-		SpaceShip v = new SpaceShip(180, 530, 30, 70);
+		SpaceShip v = new SpaceShip(180, 500, 60, 100);
 		GamePanel gp = new GamePanel();
 		GameEngine engine = new GameEngine(gp, v);
 
@@ -35,7 +35,7 @@ public class Main {
 		frame.addKeyListener(engine);
 		frame.getContentPane().add(gp, BorderLayout.CENTER);
 		frame.setVisible(true);
-	
+	 
 		engine.start();
 	}
 }

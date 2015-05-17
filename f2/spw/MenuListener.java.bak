@@ -10,7 +10,6 @@ public class MenuListener implements ActionListener{
     GameEngine engine;
     
     public MenuListener(JMenuItem menuExit,JMenuItem menuRestart,JMenuItem menuStop,GameEngine engine){
-        this.menuCredit = menuCredit;
         this.menuExit = menuExit;
         this.menuRestart = menuRestart;
         this.menuStop = menuStop;

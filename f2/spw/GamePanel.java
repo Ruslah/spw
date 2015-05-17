@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
 		bi = new BufferedImage(400, 600, BufferedImage.TYPE_INT_ARGB);
 		big = (Graphics2D) bi.getGraphics();
 		//big.setBackground(Color.WHITE);
-		imgBackground = Toolkit.getDefaultToolkit().getImage("bg.jpg");
+		imgBackground = Toolkit.getDefaultToolkit().getImage("bg.png");
 		big.drawImage(imgBackground, 0, 0, 400, 600,null);
 	}
 
@@ -31,12 +31,16 @@ public class GamePanel extends JPanel {
 		big.setColor(Color.WHITE);		
 		big.drawString(String.format("Score"), 260, 20);
 		big.drawString(String.format("%08d", reporter.getScore()), 300, 20);
-		big.drawString(String.format("HP"), 30, 20);
-		big.drawString(String.format("%02d", reporter.getHp()), 50, 20);
-		big.drawString(String.format("Coutdown"), 100, 20);
-		big.drawString(String.format("%02d", reporter.getTime()), 170, 20);
-		big.drawString(String.format("Power"), 200, 20);
-		big.drawString(String.format("%02d", reporter.getChk()), 200, 40);
+		big.drawString(String.format("Life"), 30, 20);
+		big.drawString(String.format("%02d", reporter.getLife()), 70, 20);
+		big.drawString(String.format("Bullets"), 30, 40);
+		big.drawString(String.format("%02d", reporter.getChk()), 70, 40);
+
+		if(reporter.getTime()>0){
+			big.drawString(String.format("Coutdown"), 100, 20);
+			big.drawString(String.format("%02d", reporter.getTime()), 170, 20);
+		}
+
 		for(Sprite s : sprites){
 			s.draw(big);
 		}

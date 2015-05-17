@@ -23,7 +23,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	private int t = 0;
 	private int time = 0;
 	private int count = 10 ;
-	private int hp = 3;
+	private int life = 3;
 	private int chk = 100;
 	private long score = 0;
 	private double difficulty = 0.1;
@@ -130,7 +130,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				decHp();
+				decLife();
 				e.pickup();
 				return;
 			}
@@ -220,8 +220,8 @@ public class GameEngine implements KeyListener, GameReporter{
 		return score;
 	}
 
-	public int getHp(){
-		return hp;
+	public int getLife(){
+		return life;
 	}
 
 	public int getTime(){
@@ -248,9 +248,9 @@ public class GameEngine implements KeyListener, GameReporter{
 		//do nothing		
 	}
 
-	public void decHp(){
-		hp--;
-		if(hp <= 0){
+	public void decLife(){
+		life--;
+		if(life <= 0){
 			die();
 		}
 	}
@@ -264,18 +264,18 @@ public class GameEngine implements KeyListener, GameReporter{
 				time+=120;
 				t+=10;
 			}
-			v.width = 15;
-			v.height = 35;
+			v.width = 60;
+			v.height = 70;
 			
 		}else if(inf==false){
-			v.width = 30;
-			v.height = 70;
+			v.width = 100;
+			v.height = 110;
 		}
 	}
 
 	private void shoot(){
 			if(chk>0&&chk<100){
-				Bullet b = new Bullet((v.x) + (v.width/2) - 5, v.y);
+				Bullet b = new Bullet((v.x) + (v.width/2), v.y);
 				gp.sprites.add(b);
 				bullets.add(b);				
 			}else{
@@ -287,4 +287,21 @@ public class GameEngine implements KeyListener, GameReporter{
 		this.score = score;
 	}
 	
+	public void restart(){
+		gp.sprites.clear();
+		gp.sprites.add(v);
+		enemies.clear();
+		item.clear();
+		count = 0 ;
+		life = 3;
+		chk = 100;
+		score = 0;
+		t = 0;
+		time = 0;
+		
+		//timer.restart();
+
+		v.positionSet();
+
+	}
 }

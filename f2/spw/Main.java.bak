@@ -13,7 +13,6 @@ public class Main {
 		frame.getContentPane().setLayout(new BorderLayout());
 		JMenuBar menubar = new JMenuBar();
         JMenu menuMain = new JMenu("Main");
-        JMenu menuAbout = new JMenu("About");
         JMenuItem menuRestart =new JMenuItem("Restart");
         JMenuItem menuExit = new JMenuItem("Exit");
         JMenuItem menuStop = new JMenuItem("Stop");    
@@ -21,10 +20,9 @@ public class Main {
         menuMain.add(menuStop);
         menuMain.add(menuExit);
         menubar.add(menuMain);
-        menubar.add(menuAbout);
         frame.setJMenuBar(menubar);
 
-		SpaceShip v = new SpaceShip(180, 530, 30, 70);
+		SpaceShip v = new SpaceShip(180, 500, 60, 100);
 		GamePanel gp = new GamePanel();
 		GameEngine engine = new GameEngine(gp, v);
 

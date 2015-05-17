@@ -17,7 +17,7 @@ public class SpaceShip extends Sprite{
 	public void draw(Graphics2D g) {
 		//g.setColor(Color.YELLOW);
 		//g.fillRect(x, y, width, height);
-		Image img = Toolkit.getDefaultToolkit().getImage("19.gif");
+		Image img = Toolkit.getDefaultToolkit().getImage("car.gif");
         g.drawImage(img, x, y, width, height, null);
 	}
 
@@ -36,5 +36,9 @@ public class SpaceShip extends Sprite{
 				y = 550;
 		}
 	}
+	public void positionSet(){
+		x = 180;
+		y = 500;
 
+	}
 }

@@ -27,7 +27,7 @@ public class MenuListener implements ActionListener{
         }
         if(e.getSource() == menuRestart){
             engine.start();
-            engine.setScore(0);
+            engine.restart();
         }
         if(e.getSource() == menuStop){
             engine.die();
